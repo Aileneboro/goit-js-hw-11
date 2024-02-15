@@ -6,12 +6,12 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 const form = document.querySelector('.form');
 const gallery = document.querySelector('.gallery');
 const container = document.querySelector('div');
-const inputDate = document.querySelector('input');
+const searchInput = document.querySelector('input');
 
 function showLoader() {
   const loader = document.createElement('span');
   loader.classList.add('loader');
-  container.append(loader);
+  gallery.parentNode.insertBefore(loader, gallery);
 }
 
 function hideLoader() {
@@ -23,7 +23,7 @@ function hideLoader() {
 
 form.addEventListener('submit', event => {
   event.preventDefault();
-  if (inputDate.value.trim() === '') {
+  if (searchInput.value.trim() === '') {
     iziToast.error({
       message: 'Your request is missing. Please fill out the form',
       position: 'topCenter',
@@ -35,9 +35,9 @@ form.addEventListener('submit', event => {
 
   showLoader();
 
-  const searchTerm = inputDate.value;
+  const searchTerm = searchInput.value;
   searchImages(searchTerm);
-  inputDate.value = '';
+  searchInput.value = '';
 });
 
 function searchImages(searchTerm) {
@@ -94,6 +94,6 @@ function displayImages(data) {
       captionDelay: 250,
     });
 
-    lightbox.on('show.simplelightbox').refresh();
+    lightbox.refresh(); // Оновлення лайтбоксу після вставлення нових елементів
   }
 }
