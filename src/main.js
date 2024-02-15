@@ -5,8 +5,16 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const form = document.querySelector('.form');
 const gallery = document.querySelector('.gallery');
-const container = document.querySelector('div');
 const searchInput = document.querySelector('input');
+
+const lightbox = new SimpleLightbox('.gallery a', {
+  captions: true,
+  captionType: 'attr',
+  captionsData: 'alt',
+  captionPosition: 'bottom',
+  captionSelector: 'img',
+  captionDelay: 250,
+});
 
 function showLoader() {
   const loader = document.createElement('span');
@@ -85,15 +93,6 @@ function displayImages(data) {
 
     gallery.insertAdjacentHTML('beforeend', markup);
 
-    const lightbox = new SimpleLightbox('.gallery a', {
-      captions: true,
-      captionType: 'attr',
-      captionsData: 'alt',
-      captionPosition: 'bottom',
-      captionSelector: 'img',
-      captionDelay: 250,
-    });
-
-    lightbox.refresh(); // Оновлення лайтбоксу після вставлення нових елементів
+    lightbox.refresh();
   }
 }
